@@ -6,7 +6,7 @@
 
 ## ConcurrentHashMap通过get方法获取数据的时候，是否需要通过加锁来保证数据的可见性？为什么？
 ```java
-public V get(Object key) {
+    public V get(Object key) {
         Node<K,V>[] tab; Node<K,V> e, p; int n, eh; K ek;
         int h = spread(key.hashCode());
         if ((tab = table) != null && (n = tab.length) > 0 &&
@@ -28,9 +28,11 @@ public V get(Object key) {
 ```
 - 可以看到会使用tabAt获取到值所在的node数组
 ```java
-static final <K,V> Node<K,V> tabAt(Node<K,V>[] tab, int i) {
+
+    static final <K,V> Node<K,V> tabAt(Node<K,V>[] tab, int i) {
         return (Node<K,V>)U.getObjectVolatile(tab, ((long)i << ASHIFT) + ABASE);
     }
+    
 ```
 - 调用了Unsafe类的getObjectVolatile方法来获取对象，通过volatile来保证对数组内元素的写操作一定Happens Before于对数组内元素的读操作，再通过hash值得比较获取到值，保证了数据得可见性
 
