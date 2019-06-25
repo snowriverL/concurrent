@@ -40,6 +40,8 @@
 
 > 当线程空闲超过keepAliveTime，非核心线程会被回收，若allowCoreThreadTimeOut为true则核心线程也会被回收,若allowCoreThreadTimeOut为false则核心线程会保持存活直到线程池关闭
 ## FutureTask是什么
+> FutureTask 是 Runnable 和 Future 的结合，如果我们把 Runnable 比作是生产者， Future 比作是消费者，那么 FutureTask 是被这两者共享的，
+  生产者运行 run 方法计算结果，消费者通过 get 方法获取结果。
 ## Thread.sleep(0)的作用是什么
 > Sleep 的意思是告诉操作系统自己要休息 n 毫秒，这段时间就让给另一个就绪的线程吧。当 n=0 的时候，意思是要放弃自己剩下的时间片，但是仍然是就绪状态，
   其实意思和 Yield 有点类似。但是 Sleep(0) 只允许那些优先级相等或更高的线程使用当前的CPU，其它线程只能等着挨饿了。如果没有合适的线程，
